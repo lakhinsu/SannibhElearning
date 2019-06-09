@@ -19,24 +19,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView text = (TextView)findViewById(R.id.TestView);
+        TextView text = (TextView) findViewById(R.id.TestView);
 
         preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String email = preferences.getString("email","0");
-        String password = preferences.getString("password","0");
-        if(email=="0" && password=="0"){
+        String email = preferences.getString("email", "0");
+        String password = preferences.getString("password", "0");
+        if (email == "0" && password == "0") {
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            text.setText("" + email + password);
+            Toast.makeText(this, "" + email + "" + password, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(),GeneralActivity.class);
+            startActivity(i);
         }
-        else{
-            text.setText(""+email+password);
-
-            Toast.makeText(this, ""+email+""+password, Toast.LENGTH_SHORT).show();
-        }
-
-
-
 
 
     }
