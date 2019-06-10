@@ -3,16 +3,11 @@ package com.sannibhelearning;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-
-import javax.security.auth.callback.Callback;
 
 public class LoginQuery extends AsyncTask<String , Void, String>
 
@@ -34,7 +29,7 @@ public class LoginQuery extends AsyncTask<String , Void, String>
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionString = "jdbc:mysql://192.168.0.4:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
+            String connectionString = "jdbc:mysql://192.168.43.121:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
             Connection con = DriverManager.getConnection(connectionString);
 
             // Toast.makeText(,"You Clicked Register",Toast.LENGTH_SHORT).show();
