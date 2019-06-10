@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             text.setText("" + email + password);
             Toast.makeText(this, "" + email + "" + password, Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(),GeneralActivity.class);
+          Intent i = new Intent(getApplicationContext(),CommonActivity.class);
             startActivity(i);
         }
 

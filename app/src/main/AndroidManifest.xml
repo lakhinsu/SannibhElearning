@@ -11,10 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".GeneralActivity"
-            android:label="@string/title_activity_general"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".CommonActivity"></activity>
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
