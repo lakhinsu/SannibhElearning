@@ -1,9 +1,12 @@
 package com.sannibhelearning;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.sannibhelearning.ui.main.CommonQuery;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -34,13 +37,17 @@ public class LoginQuery extends AsyncTask<String , Void, String>
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionString = "jdbc:mysql://192.168.0.4:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
+            String connectionString = "jdbc:mysql://192.168.43.52:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
             Connection con = DriverManager.getConnection(connectionString);
 
             // Toast.makeText(,"You Clicked Register",Toast.LENGTH_SHORT).show();
            // debug log Log.d("query","here");
             String email=params[0];
             String password=params[1];
+            Intent i=new Intent();
+            i.putExtra("Email",email);
+
+
 
             String query = "SELECT email,password FROM user WHERE email=\""+email+"\" AND password=\""+password+"\";";
 
