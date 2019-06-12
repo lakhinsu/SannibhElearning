@@ -15,8 +15,7 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
-    String[] values = new String[]{"India", "java", "c++", "Ad.Java", "Linux", "Unix"};
-    ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
