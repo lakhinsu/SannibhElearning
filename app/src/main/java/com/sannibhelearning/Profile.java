@@ -21,7 +21,7 @@ public class Profile extends AppCompatActivity {
         String password = preferences.getString("password", "0");
         String firstname = preferences.getString("fname","0");
         String lastname= preferences.getString("lname","0");
-        username.setText(firstname+" "+lastname);
+        username.setText(email);
 
     }
 }
