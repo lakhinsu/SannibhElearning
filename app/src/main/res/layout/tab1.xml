@@ -11,20 +11,16 @@
 
     <include
 
-        layout="@layout/activity_common"
-        app:layout_constraintBottom_toBottomOf="@+id/listView3"
-        app:layout_constraintEnd_toEndOf="@+id/listView3"
-        app:layout_constraintStart_toStartOf="@+id/listView3"
-        app:layout_constraintTop_toTopOf="@+id/listView3" />
+        android:id="@+id/include"
+        layout="@layout/activity_common" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tabLayout"
-        app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include" />
 </android.support.constraint.ConstraintLayout>

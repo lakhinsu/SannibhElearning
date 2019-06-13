@@ -47,6 +47,7 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
 
     }
