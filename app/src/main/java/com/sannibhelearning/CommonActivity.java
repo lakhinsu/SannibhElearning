@@ -79,7 +79,7 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         //Adding onTabSelectedListener to swipe views
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.setOnTabSelectedListener(this);
+
 
     }
 
