@@ -1,8 +1,10 @@
 package com.sannibhelearning;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -19,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView text = (TextView) findViewById(R.id.TestView);
 
         preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String email = preferences.getString("email", "0");
@@ -29,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
-            text.setText("" + email + password);
             Toast.makeText(this, "" + email + "" + password, Toast.LENGTH_SHORT).show();
-          Intent i = new Intent(getApplicationContext(),CommonActivity.class);
+            Intent i = new Intent(this,CommonActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ActivityCompat.finishAffinity(this);
             startActivity(i);
         }
 
