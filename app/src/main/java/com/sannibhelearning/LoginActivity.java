@@ -3,6 +3,7 @@ package com.sannibhelearning;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,13 +68,13 @@ public class LoginActivity extends AppCompatActivity implements TaskCompleted{
     public void onTaskComplete(String result) {
         Toast.makeText(this, ""+result, Toast.LENGTH_SHORT).show();
         if(result=="success"){
-            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+            Intent i = new Intent(getApplicationContext(),CommonActivity.class);
             preferences=getSharedPreferences("UserPrefs",Context.MODE_PRIVATE);
             SharedPreferences.Editor data = preferences.edit();
             data.putString("email", semail);
             data.putString("password", spassword);
             data.commit();
-
+            ActivityCompat.finishAffinity(this);
             startActivity(i);
         }
         else if(result=="fail")

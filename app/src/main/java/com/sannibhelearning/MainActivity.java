@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ActivityCompat.finishAffinity(this);
         preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String email = preferences.getString("email", "0");
         String password = preferences.getString("password", "0");

@@ -116,6 +116,8 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_profile) {
             Toast.makeText(this, "You Clicked On Profile button", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,Profile.class);
+            startActivity(i);
             return true;
         }
 

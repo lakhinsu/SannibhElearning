@@ -1,5 +1,9 @@
 package com.sannibhelearning;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
+    SharedPreferences preferences;
+    String semail, spassword, sfname, slname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText confirmpass = (EditText) findViewById(R.id.Register_Confirmpass);
 
         Button RegisterToDatabase = (Button) findViewById(R.id.Register);
-
 
 
         RegisterToDatabase.setOnClickListener(new View.OnClickListener() {
@@ -41,13 +46,23 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (confirmpass == null) {
                     Toast.makeText(getApplicationContext(), "Enter Confirm Password", Toast.LENGTH_SHORT).show();
 
-                } else if (password != confirmpass) {
-                    Toast.makeText(getApplicationContext(), "Password Do not match!", Toast.LENGTH_SHORT).show();
                 } else {
+                    semail = email.getText().toString();
+                    spassword = password.getText().toString();
+                    sfname = fName.getText().toString();
+                    slname = lName.getText().toString();
                     RegisterQuery q = new RegisterQuery();
+                    preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor data = preferences.edit();
+                    data.putString("email", semail);
+                    data.putString("password", spassword);
+                    data.putString("fname", sfname);
+                    data.putString("lname", slname);
+                    data.commit();
                     q.execute(email.getText().toString(), password.getText().toString(), fName.getText().toString(), lName.getText().toString(), occupation.getText().toString());
-                    //Toast.makeText(getApplicationContext(),"You Clicked Register",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "You Clicked Register", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(i);
                 }
             }
         });
