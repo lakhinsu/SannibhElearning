@@ -2,6 +2,7 @@ package com.sannibhelearning;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +21,8 @@ import com.squareup.picasso.PicassoProvider;
 
 import java.net.URL;
 import java.util.ArrayList;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MyAdapter extends BaseExpandableListAdapter {
 
@@ -62,6 +65,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       //  mGroups=courses;
         Log.d("sqllak","courses:"+courses.size());
+
         mGroups=new String[courses.size()];
         for(int i=0;i<courses.size();i++){
             mGroups[i]=courses.get(i);
@@ -73,6 +77,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         for(int i=0;i<images.size();i++){
             mGroupDrawables[i]=images.get(i);
         }
+
         mChilds=modules;
     }
 
@@ -142,7 +147,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.sample_activity_list_child_item, parent, false);
         }
@@ -150,11 +155,19 @@ public class MyAdapter extends BaseExpandableListAdapter {
         final TextView text = (TextView) convertView.findViewById(R.id.sample_activity_list_child_item_text);
         text.setText(mChilds[groupPosition][childPosition]);
         final String temp=mChilds[groupPosition][childPosition];
+
+
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("sqllak",""+temp);
 
+
+                Intent i = new Intent(mContext,VideosActivity.class);
+                i.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("coursename",mGroups[groupPosition]);
+                i.putExtra("modulename",temp);
+                mContext.startActivity(i);
                 Toast.makeText(mContext,"Clicked on "+temp,Toast.LENGTH_SHORT).show();
                 //Module clicks handle here
             }
