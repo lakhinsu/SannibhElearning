@@ -30,4 +30,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.16'
     implementation 'com.diegocarloslima:fgelv:0.1.+@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

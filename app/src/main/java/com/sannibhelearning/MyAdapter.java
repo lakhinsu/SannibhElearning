@@ -2,6 +2,9 @@ package com.sannibhelearning;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +12,23 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
+
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseExpandableListAdapter {
 
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
+    ImageView image;
 
-   // ArrayList<String> mGroups;
+
+    // ArrayList<String> mGroups;
 
     private String[] mGroups ;/*= {
             "Course 1",
@@ -31,20 +42,10 @@ public class MyAdapter extends BaseExpandableListAdapter {
             "Course 9",
     };*/
 
-    private final int[] mGroupDrawables = {
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon,
-            R.drawable.ic_profile_icon
-    };
+    private String[] mGroupDrawables;
 
     private final String[][] mChilds = {
-            {"Modules",},
+            {"Modules","Modules2","Modules3"},
             {"Modules",},
             {"Modules",},
             {"Modules",},
@@ -56,7 +57,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     };
 
-    public MyAdapter(Context context, ArrayList<String> courses)  {
+    public MyAdapter(Context context, ArrayList<String> courses,ArrayList<String> images)  {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       //  mGroups=courses;
@@ -67,6 +68,11 @@ public class MyAdapter extends BaseExpandableListAdapter {
         }
         //mGroups=(String[]) courses.toArray();
         Log.d("sqllak","array:"+mGroups[0]);
+
+        mGroupDrawables=new String[images.size()];
+        for(int i=0;i<images.size();i++){
+            mGroupDrawables[i]=images.get(i);
+        }
     }
 
     @Override
@@ -90,8 +96,26 @@ public class MyAdapter extends BaseExpandableListAdapter {
             convertView = mLayoutInflater.inflate(R.layout.sample_activity_list_group_item, parent, false);
         }
 
-        final ImageView image = (ImageView) convertView.findViewById(R.id.sample_activity_list_group_item_image);
-        image.setImageResource(mGroupDrawables[groupPosition]);
+        image = (ImageView) convertView.findViewById(R.id.sample_activity_list_group_item_image);
+        //image.setImageResource(mGroupDrawables[groupPosition]);
+
+        Picasso.get().load("http://192.168.0.4:80/sannibh/admin/"+mGroupDrawables[groupPosition]).error(R.drawable.ic_profile_icon).into(image,new Callback.EmptyCallback() {
+            @Override public void onSuccess() {
+                // Index 0 is the image view.
+                Log.d("sqllak","imageloaded");
+                //animator.setDisplayedChild(0);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                super.onError(e);
+                Log.d("sqllak", "" + e.getMessage());
+            }
+        });;
+        //image.setImageURI(Uri.parse("http://192.168.0.4:80/sannibh/admin/courses/Python/image/Python.jpg"));
+
+
+
 
         final TextView text = (TextView) convertView.findViewById(R.id.sample_activity_list_group_item_text);
         text.setText(mGroups[groupPosition]);
@@ -126,8 +150,26 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
         final TextView text = (TextView) convertView.findViewById(R.id.sample_activity_list_child_item_text);
         text.setText(mChilds[groupPosition][childPosition]);
+        final String temp=mChilds[groupPosition][childPosition];
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("sqllak",""+temp);
+
+
+                //Module clicks handle here
+            }
+        });
 
         return convertView;
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+        //Course click handle here
+
+        Log.d("sqllak",""+mGroups[groupPosition]);
     }
 
     @Override
@@ -139,5 +181,6 @@ public class MyAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
 
 }

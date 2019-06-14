@@ -15,7 +15,7 @@ public class RegisterQuery extends AsyncTask<String , Void, String>
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionString = "jdbc:mysql://192.168.43.121:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
+            String connectionString = "jdbc:mysql://192.168.0.4:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
             Connection con = DriverManager.getConnection(connectionString);
 
            // Toast.makeText(,"You Clicked Register",Toast.LENGTH_SHORT).show();

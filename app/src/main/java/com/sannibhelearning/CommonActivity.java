@@ -44,6 +44,7 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
     SharedPreferences preferences;
     ArrayList<String> mycourses=new ArrayList<>();
+    ArrayList<String> images=new ArrayList<>();
 
     WrapperExpandableListAdapter wrapperAdapter;
 
@@ -161,14 +162,17 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         Log.d("sqllak","here2");
         try {
             mycourses=new ArrayList<>();
+            images=new ArrayList<>();
             while (result.next()) {
-                String temp=result.getString("coursename");
-                mycourses.add(temp);
-                Log.d("sqllak",""+temp);
+                String coursename=result.getString("coursename");
+                String image=result.getString("image");
+                mycourses.add(coursename);
+                images.add(image);
+                Log.d("sqllak","Course:"+coursename+" Image:"+image);
             }
             Log.d("sqllak","arraylength"+mycourses.size());
             Log.d("sqllak","arraylist:"+mycourses.get(0));
-            BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses);
+            BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses,images);
             wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
             Log.d("sqllak","here4");
             Tab1.setAdatper(wrapperAdapter);

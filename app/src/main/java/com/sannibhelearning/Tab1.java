@@ -1,7 +1,9 @@
 package com.sannibhelearning;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -28,7 +31,7 @@ import java.util.List;
 
 import static com.sannibhelearning.MainActivity.MyPREFERENCES;
 
-public class Tab1 extends ListFragment implements AdapterView.OnItemClickListener{
+public class Tab1 extends ListFragment implements FloatingGroupExpandableListView.OnItemClickListener{
 
     SharedPreferences preferences;
    static  ArrayList<String> mycourses;
@@ -40,11 +43,13 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab1, container, false);
-        myList = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
-      //  myList.setAdapter(wrapperAdapter);
+            View view = inflater.inflate(R.layout.tab1, container, false);
+            myList = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
+          //  myList.setAdapter(wrapperAdapter);
 
-        return view;
+            return  view;
+
+
     }
 
     @Override
@@ -63,8 +68,6 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-
     }
 
     public static void setAdatper(WrapperExpandableListAdapter wrapperAdapter){
@@ -72,8 +75,6 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
         //wrapperAdapter=activity.getCourses();
         myList.setAdapter(wrapperAdapter);
         Log.d("sqllak","length:"+wrapperAdapter.getChildrenCount(0));
-
-       // myList.refreshDrawableState();
 
     }
 
