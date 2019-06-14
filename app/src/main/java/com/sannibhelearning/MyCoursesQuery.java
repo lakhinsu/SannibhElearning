@@ -2,6 +2,7 @@ package com.sannibhelearning;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +28,7 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
     protected String doInBackground(String... strings) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionString = "jdbc:mysql://192.168.0.4:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
+            String connectionString = "jdbc:mysql://192.168.43.121:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
             Connection con = DriverManager.getConnection(connectionString);
 
             String email=strings[0];
@@ -48,6 +49,7 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        Log.d("sqllak","here");
         mCallback.onCoursesLoad(resultSet);
 
     }

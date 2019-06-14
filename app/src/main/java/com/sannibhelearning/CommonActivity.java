@@ -1,6 +1,8 @@
 package com.sannibhelearning;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -8,15 +10,24 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 
-public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import static com.sannibhelearning.MainActivity.MyPREFERENCES;
+
+
+public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload {
     private TabHost tabHost;
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -27,6 +38,12 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
     private FloatingActionButton fab;
 
+
+    SharedPreferences preferences;
+    ArrayList<String> mycourses;
+
+    WrapperExpandableListAdapter wrapperAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +52,11 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String email = preferences.getString("email", "0");
+
+        MyCoursesQuery myCoursesQuery=new MyCoursesQuery(CommonActivity.this);
+        myCoursesQuery.execute(email);
 
 
 
@@ -122,6 +144,27 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCoursesLoad(ResultSet result) {
+        Log.d("sqllak","here2");
+        try {
+            while (result.next()) {
+                mycourses.add(result.getString("coursename"));
+                Log.d("sqllak",""+result.getString("coursename"));
+            }
+            BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses);
+            wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
+           // myList.setAdapter(wrapperAdapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public WrapperExpandableListAdapter getCourses(){
+
+        return wrapperAdapter;
     }
 
 

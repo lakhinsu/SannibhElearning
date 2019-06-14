@@ -27,12 +27,12 @@ import java.util.List;
 
 import static com.sannibhelearning.MainActivity.MyPREFERENCES;
 
-public class Tab1 extends ListFragment implements AdapterView.OnItemClickListener,OnCoursesload {
+public class Tab1 extends ListFragment implements AdapterView.OnItemClickListener{
 
     SharedPreferences preferences;
     ArrayList<String> mycourses;
     FloatingGroupExpandableListView myList;
-
+    WrapperExpandableListAdapter wrapperAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -40,12 +40,9 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
         View view = inflater.inflate(R.layout.tab1, container, false);
         myList = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
 
-        preferences = getContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String email = preferences.getString("email", "0");
-
-        MyCoursesQuery myCoursesQuery=new MyCoursesQuery(getActivity());
-        myCoursesQuery.execute(email);
-
+        CommonActivity activity=(CommonActivity) getActivity();
+        wrapperAdapter=activity.getCourses();
+        myList.setAdapter(wrapperAdapter);
 
         return view;
     }
@@ -70,17 +67,5 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
 
     }
 
-    @Override
-    public void onCoursesLoad(ResultSet result) {
-        try {
-            while (result.next()) {
-                mycourses.add(result.getString("coursename"));
-            }
-            BaseExpandableListAdapter myAdapter = new MyAdapter(getContext(),mycourses);
-            WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
-            myList.setAdapter(wrapperAdapter);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+
 }
