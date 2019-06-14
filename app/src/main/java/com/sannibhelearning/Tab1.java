@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +31,18 @@ import static com.sannibhelearning.MainActivity.MyPREFERENCES;
 public class Tab1 extends ListFragment implements AdapterView.OnItemClickListener{
 
     SharedPreferences preferences;
-    ArrayList<String> mycourses;
-    FloatingGroupExpandableListView myList;
-    WrapperExpandableListAdapter wrapperAdapter;
+   static  ArrayList<String> mycourses;
+    static FloatingGroupExpandableListView myList;
+    static WrapperExpandableListAdapter wrapperAdapter;
+    //public static boolean flag=false;
+    static CommonActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab1, container, false);
         myList = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
-
-        CommonActivity activity=(CommonActivity) getActivity();
-        wrapperAdapter=activity.getCourses();
-        myList.setAdapter(wrapperAdapter);
+      //  myList.setAdapter(wrapperAdapter);
 
         return view;
     }
@@ -64,6 +64,16 @@ public class Tab1 extends ListFragment implements AdapterView.OnItemClickListene
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public static void setAdatper(WrapperExpandableListAdapter wrapperAdapter){
+
+        //wrapperAdapter=activity.getCourses();
+        myList.setAdapter(wrapperAdapter);
+        Log.d("sqllak","length:"+wrapperAdapter.getChildrenCount(0));
+
+       // myList.refreshDrawableState();
 
     }
 

@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+
+
 public class MyCoursesQuery extends AsyncTask<String , Void, String> {
 
 
@@ -33,10 +35,17 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
 
             String email=strings[0];
 
+
+
             String query="select course.coursename,course.image from usertocourse inner join course on course.courseid=usertocourse.courseid where usertocourse.email=\""+email+"\";";
+
+            Log.d("sqllak",""+query);
 
             Statement stmt=con.createStatement();
             resultSet=stmt.executeQuery(query);
+
+            Log.d("sqllak","here3");
+
 
 
         }catch (Exception e){

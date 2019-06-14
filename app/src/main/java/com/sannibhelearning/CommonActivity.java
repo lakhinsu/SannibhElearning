@@ -25,6 +25,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import static com.sannibhelearning.MainActivity.MyPREFERENCES;
+import static com.sannibhelearning.Tab1.setAdatper;
+
+
 
 
 public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload {
@@ -40,23 +43,29 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
 
     SharedPreferences preferences;
-    ArrayList<String> mycourses;
+    ArrayList<String> mycourses=new ArrayList<>();
 
     WrapperExpandableListAdapter wrapperAdapter;
+
+    boolean flag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common);
-        init();
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String email = preferences.getString("email", "0");
 
+        init();
+
         MyCoursesQuery myCoursesQuery=new MyCoursesQuery(CommonActivity.this);
         myCoursesQuery.execute(email);
+
+
 
 
 
@@ -148,14 +157,22 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
     @Override
     public void onCoursesLoad(ResultSet result) {
+
         Log.d("sqllak","here2");
         try {
+            mycourses=new ArrayList<>();
             while (result.next()) {
-                mycourses.add(result.getString("coursename"));
-                Log.d("sqllak",""+result.getString("coursename"));
+                String temp=result.getString("coursename");
+                mycourses.add(temp);
+                Log.d("sqllak",""+temp);
             }
+            Log.d("sqllak","arraylength"+mycourses.size());
+            Log.d("sqllak","arraylist:"+mycourses.get(0));
             BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses);
             wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
+            Log.d("sqllak","here4");
+            Tab1.setAdatper(wrapperAdapter);
+
            // myList.setAdapter(wrapperAdapter);
         }catch (Exception e){
             e.printStackTrace();

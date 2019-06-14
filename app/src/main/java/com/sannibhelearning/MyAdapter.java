@@ -2,6 +2,7 @@ package com.sannibhelearning;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,9 @@ public class MyAdapter extends BaseExpandableListAdapter {
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
 
-    ArrayList<String> mGroups;
+   // ArrayList<String> mGroups;
 
-   /* private final String[] mGroups = {
+    private String[] mGroups ;/*= {
             "Course 1",
             "Course 2",
             "Course 3",
@@ -58,17 +59,24 @@ public class MyAdapter extends BaseExpandableListAdapter {
     public MyAdapter(Context context, ArrayList<String> courses)  {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mGroups=courses;
+      //  mGroups=courses;
+        Log.d("sqllak","courses:"+courses.size());
+        mGroups=new String[courses.size()];
+        for(int i=0;i<courses.size();i++){
+            mGroups[i]=courses.get(i);
+        }
+        //mGroups=(String[]) courses.toArray();
+        Log.d("sqllak","array:"+mGroups[0]);
     }
 
     @Override
     public int getGroupCount() {
-        return mGroups.size();
+        return mGroups.length;
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return mGroups.get(groupPosition);
+        return mGroups[groupPosition];
     }
 
     @Override
@@ -86,7 +94,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         image.setImageResource(mGroupDrawables[groupPosition]);
 
         final TextView text = (TextView) convertView.findViewById(R.id.sample_activity_list_group_item_text);
-        text.setText(mGroups.get(groupPosition));
+        text.setText(mGroups[groupPosition]);
 
         final ImageView expandedImage = (ImageView) convertView.findViewById(R.id.sample_activity_list_group_expanded_image);
         final int resId = isExpanded ? R.drawable.ic_down_arrow : R.drawable.ic_down_arrow;
