@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideosActivity extends AppCompatActivity {
+public class VideosActivity extends AppCompatActivity implements OnVideosListLoad {
 
     TextView modulenameview;
     Toolbar toolbar;
     ListView video_list_view;
+    ArrayAdapter<String> VideoAdapter;
+    List<String> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +40,13 @@ public class VideosActivity extends AppCompatActivity {
         modulenameview = (TextView) findViewById(R.id.modulename);
         modulenameview.setText(modulename);
 
-        video_list_view = (ListView) findViewById(R.id.videolistid);
-        List<String> videos = new ArrayList<String>();
-        videos.add("Syntax");
-        videos.add("Logic");
+        VideosQuery videosQuery=new VideosQuery(VideosActivity.this);
+        videosQuery.execute(coursename,modulename);
 
-        ArrayAdapter<String> VideoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, videos){
+        video_list_view = (ListView) findViewById(R.id.videolistid);
+        videos = new ArrayList<String>();
+
+       VideoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, videos){
             @Override
             public View getView(int position, View convertView,ViewGroup parent) {
 
@@ -67,6 +71,16 @@ public class VideosActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void getVideosList(String[][] videosarray) {
+
+        for(int i=0;i<videosarray.length;i++){
+            videos.add(videosarray[i][0]+"  ("+videosarray[i][2]+")");
+        }
+        VideoAdapter.notifyDataSetChanged();
 
     }
 }
