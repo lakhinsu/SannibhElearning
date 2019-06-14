@@ -30,7 +30,7 @@ import static com.sannibhelearning.Tab1.setAdatper;
 
 
 
-public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload {
+public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload,OnModulesLoad {
     private TabHost tabHost;
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -163,19 +163,34 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         try {
             mycourses=new ArrayList<>();
             images=new ArrayList<>();
+            ArrayList<String> courseidlist=new ArrayList<>();
             while (result.next()) {
                 String coursename=result.getString("coursename");
                 String image=result.getString("image");
+                String courseid=result.getString("courseid");
                 mycourses.add(coursename);
                 images.add(image);
-                Log.d("sqllak","Course:"+coursename+" Image:"+image);
+                courseidlist.add(courseid);
+
+
+                Log.d("sqllak","Courseid:"+courseid+" Course:"+coursename+" Image:"+image);
             }
+
+
             Log.d("sqllak","arraylength"+mycourses.size());
             Log.d("sqllak","arraylist:"+mycourses.get(0));
-            BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses,images);
-            wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
-            Log.d("sqllak","here4");
-            Tab1.setAdatper(wrapperAdapter);
+
+
+            String courseid[]=new String[courseidlist.size()];
+            for(int i=0;i<courseidlist.size();i++){
+                courseid[i]=courseidlist.get(i);
+            }
+
+            ModulesQuery modulesQuery=new ModulesQuery(CommonActivity.this);
+            modulesQuery.execute(courseid);
+
+
+
 
            // myList.setAdapter(wrapperAdapter);
         }catch (Exception e){
@@ -188,5 +203,18 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         return wrapperAdapter;
     }
 
+    @Override
+    public String[][] onModulesLoad(String[][] modules) {
 
+
+        BaseExpandableListAdapter myAdapter = new MyAdapter(getApplicationContext(),mycourses,images,modules);
+        wrapperAdapter = new WrapperExpandableListAdapter(myAdapter);
+
+        Log.d("sqllak","here4");
+
+        Tab1.setAdatper(wrapperAdapter);
+
+
+        return new String[0][];
+    }
 }

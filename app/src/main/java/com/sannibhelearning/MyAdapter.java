@@ -44,7 +44,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     private String[] mGroupDrawables;
 
-    private final String[][] mChilds = {
+    private String[][] mChilds; /*= {
             {"Modules","Modules2","Modules3"},
             {"Modules",},
             {"Modules",},
@@ -55,9 +55,9 @@ public class MyAdapter extends BaseExpandableListAdapter {
             {"Modules",},
             {"Modules",},
 
-    };
+    };*/
 
-    public MyAdapter(Context context, ArrayList<String> courses,ArrayList<String> images)  {
+    public MyAdapter(Context context, ArrayList<String> courses,ArrayList<String> images,String[][] modules)  {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       //  mGroups=courses;
@@ -73,6 +73,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         for(int i=0;i<images.size();i++){
             mGroupDrawables[i]=images.get(i);
         }
+        mChilds=modules;
     }
 
     @Override
@@ -99,11 +100,9 @@ public class MyAdapter extends BaseExpandableListAdapter {
         image = (ImageView) convertView.findViewById(R.id.sample_activity_list_group_item_image);
         //image.setImageResource(mGroupDrawables[groupPosition]);
 
-        Picasso.get().load("http://192.168.0.4:80/sannibh/admin/"+mGroupDrawables[groupPosition]).error(R.drawable.ic_profile_icon).into(image,new Callback.EmptyCallback() {
+        Picasso.get().load("http://192.168.0.4:80/sannibh/admin/"+mGroupDrawables[groupPosition]).error(R.drawable.ic_network_error).fit().into(image,new Callback.EmptyCallback() {
             @Override public void onSuccess() {
-                // Index 0 is the image view.
                 Log.d("sqllak","imageloaded");
-                //animator.setDisplayedChild(0);
             }
 
             @Override
@@ -156,7 +155,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Log.d("sqllak",""+temp);
 
-
+                Toast.makeText(mContext,"Clicked on "+temp,Toast.LENGTH_SHORT).show();
                 //Module clicks handle here
             }
         });

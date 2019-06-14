@@ -37,7 +37,7 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
 
 
 
-            String query="select course.coursename,course.image from usertocourse inner join course on course.courseid=usertocourse.courseid where usertocourse.email=\""+email+"\";";
+            String query="select course.courseid,course.coursename,course.image from usertocourse inner join course on course.courseid=usertocourse.courseid where usertocourse.email=\""+email+"\";";
 
             Log.d("sqllak",""+query);
 
