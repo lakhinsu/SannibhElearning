@@ -8,6 +8,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,12 +23,13 @@ public class VideosActivity extends AppCompatActivity implements OnVideosListLoa
     ListView video_list_view;
     ArrayAdapter<String> VideoAdapter;
     List<String> videos;
+    String videosarray[][];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         String coursename = intent.getStringExtra("coursename");
 
@@ -69,6 +71,15 @@ public class VideosActivity extends AppCompatActivity implements OnVideosListLoa
 
         video_list_view.setAdapter(VideoAdapter);
 
+        video_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1=new Intent(getApplicationContext(),VideoPlayer.class);
+                intent1.putExtra("path",""+videosarray[position][1]);
+                startActivity(intent1);
+            }
+        });
+
 
 
 
@@ -76,6 +87,7 @@ public class VideosActivity extends AppCompatActivity implements OnVideosListLoa
 
     @Override
     public void getVideosList(String[][] videosarray) {
+        this.videosarray=videosarray;
 
         for(int i=0;i<videosarray.length;i++){
             videos.add(videosarray[i][0]+"  ("+videosarray[i][2]+")");
