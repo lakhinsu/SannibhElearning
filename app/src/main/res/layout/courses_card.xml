@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:elevation="3dp"
-        card_view:cardCornerRadius="0dp">
+        card_view:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,11 +19,11 @@
             <ImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="220dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="fitXY" />
@@ -44,8 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
+                android:paddingBottom="30dp"
+                android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:textSize="12dp" />
 
@@ -54,6 +54,7 @@
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:text="Enroll"
+                android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/thumbnail"
                 android:layout_marginTop="10dp"

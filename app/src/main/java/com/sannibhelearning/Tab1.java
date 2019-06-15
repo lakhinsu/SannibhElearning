@@ -45,6 +45,9 @@ public class Tab1 extends ListFragment implements FloatingGroupExpandableListVie
                              ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.tab1, container, false);
             myList = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
+            myList.setDivider(null);
+            myList.setDividerHeight(0);
+
           //  myList.setAdapter(wrapperAdapter);
 
             return  view;
