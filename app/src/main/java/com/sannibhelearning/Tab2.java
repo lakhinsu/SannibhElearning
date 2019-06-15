@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Toast;
 
 import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
 import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
@@ -37,10 +38,10 @@ public class Tab2 extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        courseModels= new ArrayList<>();
+        courseModels = new ArrayList<>();
 
 
-        courseAdapter=new CourseAdapter(getContext(),courseModels);
+        courseAdapter = new CourseAdapter(getContext(), courseModels);
 
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
@@ -55,21 +56,21 @@ public class Tab2 extends Fragment {
         return view;
     }
 
-    static public void prepareAlbums(ArrayList<CourseModel> courses)
-    {
-        for(int i=0;i<courses.size();i++){
-            courseModels.add(courses.get(i));
+    static public void prepareAlbums(ArrayList<CourseModel> courses) {
+
+        try {
+            for (int i = 0; i < courses.size(); i++) {
+                courseModels.add(courses.get(i));
+            }
+        }catch (Exception e)
+        {
+
+            Log.d("error",""+e);
         }
-
-
-
 
 
         courseAdapter.notifyDataSetChanged();
     }
-
-
-
 
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
