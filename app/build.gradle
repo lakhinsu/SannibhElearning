@@ -31,4 +31,8 @@ dependencies {
     implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.16'
     implementation 'com.diegocarloslima:fgelv:0.1.+@aar'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:recyclerview-v7:23.3.+'
+
+    // CardView
+    implementation 'com.android.support:cardview-v7:23.3.+'
 }
