@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,8 @@ public class Tab2 extends Fragment {
 
     RecyclerView recyclerView;
 
-    List<CourseModel> courseModels;
-    CourseAdapter courseAdapter;
+    static List<CourseModel> courseModels;
+    static CourseAdapter courseAdapter;
 
     //Overriden method onCreateView
     @Override
@@ -48,22 +49,17 @@ public class Tab2 extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(courseAdapter);
 
-        prepareAlbums();
+        //prepareAlbums();
 
 
         return view;
     }
 
-    private void prepareAlbums() {
-
-        CourseModel course1=new CourseModel("26","Python","Learn Python the hard way","/courses/Python/image/Python.jpg");
-        courseModels.add(course1);
-
-        CourseModel course2=new CourseModel("26","Python","Learn Python the hard way","/courses/Python/image/Python.jpg");
-        courseModels.add(course2);
-
-        CourseModel course3=new CourseModel("26","Python","Learn Python the hard way","/courses/Python/image/Python.jpg");
-        courseModels.add(course3);
+    static public void prepareAlbums(ArrayList<CourseModel> courses)
+    {
+        for(int i=0;i<courses.size();i++){
+            courseModels.add(courses.get(i));
+        }
 
 
 
@@ -118,4 +114,5 @@ public class Tab2 extends Fragment {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
 }

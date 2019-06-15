@@ -35,7 +35,7 @@ public class VideoPlayer extends AppCompatActivity {
 
         Log.d("videopath",""+path);
 
-        videoView.setVideoPath("http://192.168.0.4/sannibh/admin"+path);
+        videoView.setVideoPath("http://192.168.0.4/sannibh/admin/"+path);
         videoView.start();
     }
 }

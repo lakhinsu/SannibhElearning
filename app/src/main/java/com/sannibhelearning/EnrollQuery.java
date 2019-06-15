@@ -2,31 +2,23 @@ package com.sannibhelearning;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-
-public class MyCoursesQuery extends AsyncTask<String , Void, String> {
-
-
-
+public class EnrollQuery  extends AsyncTask<String , Void, String> {
     Connection con;
     Context mContext;
-    OnCoursesload mCallback;
+    OnEnrollment mCallback;
     ResultSet resultSet;
+    ArrayList<CourseModel> courseModelList;
 
-
-
-
-    public MyCoursesQuery(Context context){
-        mContext=context;
-        mCallback=(OnCoursesload) context;
+    public EnrollQuery(Context mContext){
+        this.mContext=mContext;
+        mCallback=(OnEnrollment) mContext;
     }
 
     @Override
@@ -37,25 +29,17 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
             Connection con = DriverManager.getConnection(connectionString);
 
             String email=strings[0];
+            String courseid=strings[1];
 
-
-
-            String query="select course.courseid,course.coursename,course.image from usertocourse inner join course on course.courseid=usertocourse.courseid where usertocourse.email=\""+email+"\";";
-
-            Log.d("sqllak",""+query);
-
-            Statement stmt=con.createStatement();
-            resultSet=stmt.executeQuery(query);
-
-            Log.d("sqllak","here3");
-
-
-
+            String query="insert into usertocourse values('"+email+"',"+courseid+");";
+            Statement statement=con.createStatement();
+            int i=statement.executeUpdate(query);
 
 
         }catch (Exception e){
             e.printStackTrace();
         }
+
 
         return null;
     }
@@ -63,8 +47,6 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Log.d("sqllak","here");
-        mCallback.onCoursesLoad(resultSet);
-
+        mCallback.onEnrollment();
     }
 }

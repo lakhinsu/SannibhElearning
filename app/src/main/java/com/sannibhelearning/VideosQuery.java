@@ -43,7 +43,7 @@ public class VideosQuery extends AsyncTask<String , Void, String> {
 
             Log.d("videosquery","course id"+courseid);
 
-            String query2="select moduleid from module where name='"+strings[1]+"';";
+            String query2="select moduleid from module where name='"+strings[1]+"' and courseid='"+courseid+"';";
             resultSet=stmt.executeQuery(query2);
             resultSet.first();
             String moduleid=resultSet.getString("moduleid");
@@ -65,6 +65,8 @@ public class VideosQuery extends AsyncTask<String , Void, String> {
                 videos[i][0]=resultSet.getString("name");
                 videos[i][1]=resultSet.getString("path");
                 videos[i][2]=resultSet.getString("duration");
+
+                Log.d("videosquery",""+videos[i][0]);
 
                 i++;
             }

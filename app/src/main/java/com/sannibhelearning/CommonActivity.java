@@ -23,6 +23,7 @@ import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.sannibhelearning.MainActivity.MyPREFERENCES;
 import static com.sannibhelearning.Tab1.setAdatper;
@@ -30,7 +31,7 @@ import static com.sannibhelearning.Tab1.setAdatper;
 
 
 
-public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload,OnModulesLoad {
+public class CommonActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,OnCoursesload,OnModulesLoad,OnAllCoursesLoad,OnEnrollment {
     private TabHost tabHost;
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -58,13 +59,11 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String email = preferences.getString("email", "0");
+
 
         init();
 
-        MyCoursesQuery myCoursesQuery=new MyCoursesQuery(CommonActivity.this);
-        myCoursesQuery.execute(email);
+
 
 
 
@@ -92,11 +91,24 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
     private void init() {
 
+
+
+        preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String email = preferences.getString("email", "0");
+
+        MyCoursesQuery myCoursesQuery=new MyCoursesQuery(CommonActivity.this);
+        myCoursesQuery.execute(email);
+
+        AllCoursesQuery allCoursesQuery=new AllCoursesQuery(CommonActivity.this);
+        allCoursesQuery.execute(email);
+
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
+        tabLayout.removeAllTabs();
+
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("My Courses"));
         tabLayout.addTab(tabLayout.newTab().setText("Courses"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Courses"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager
@@ -109,7 +121,26 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         viewPager.setAdapter(viewPagerAdapter);
 
         //Adding onTabSelectedListener to swipe views
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){});
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+
+                viewPager.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
 
 
@@ -216,5 +247,21 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
 
 
         return new String[0][];
+    }
+
+    @Override
+    public void onAllCoursesLoad(ArrayList<CourseModel> courseModel) {
+        Log.d("allcourses","oncallback");
+
+
+        Tab2.prepareAlbums(courseModel);
+
+    }
+
+    @Override
+    public void onEnrollment() {
+        //Toast.makeText(getApplicationContext(),"Enrollment done",Toast.LENGTH_SHORT).show();
+        init();
+
     }
 }

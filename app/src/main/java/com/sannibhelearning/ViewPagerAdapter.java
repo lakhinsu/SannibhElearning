@@ -22,11 +22,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 //Returning the current tabs
         switch (position) {
             case 0:
-                Tab1 tab1 = new Tab1();
-                return tab1;
-            case 1:
                 Tab2 tab2 = new Tab2();
                 return tab2;
+            case 1:
+                Tab1 tab1 = new Tab1();
+                return tab1;
             default:
                 return null;
         }

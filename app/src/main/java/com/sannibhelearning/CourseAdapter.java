@@ -1,7 +1,9 @@
 package com.sannibhelearning;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static com.sannibhelearning.MainActivity.MyPREFERENCES;
+
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
 
 
     private Context mContext;
     private List<CourseModel> courseslist;
+    SharedPreferences preferences;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,6 +66,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                preferences = mContext.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                String email = preferences.getString("email", "0");
+                Log.d("enrollquery",""+email);
+                EnrollQuery enrollQuery=new EnrollQuery(mContext);
+                enrollQuery.execute(email,courseModel.getCourseid());
                 Toast.makeText(mContext,"clicked!"+courseModel.getCouresname(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -70,10 +80,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public int getItemCount() {
         return courseslist.size();
     }
-
-
-
-
 
 
 }
