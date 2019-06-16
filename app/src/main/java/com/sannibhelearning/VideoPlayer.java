@@ -31,11 +31,12 @@ public class VideoPlayer extends AppCompatActivity {
         MediaController mediaController= new MediaController(this);
         mediaController.setAnchorView(videoView);
 
+
         videoView.setMediaController(mediaController);
 
         Log.d("videopath",""+path);
 
-        videoView.setVideoPath("http://192.168.0.4/sannibh/admin/"+path);
+        videoView.setVideoPath("http://192.168.43.121/sannibh/admin/"+path);
         videoView.start();
     }
 }

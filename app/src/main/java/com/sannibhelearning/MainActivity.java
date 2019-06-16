@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "" + email + "" + password, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "" + email + "" + password, Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this,CommonActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ActivityCompat.finishAffinity(this);

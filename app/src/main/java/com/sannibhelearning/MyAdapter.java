@@ -105,7 +105,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         image = (ImageView) convertView.findViewById(R.id.sample_activity_list_group_item_image);
         //image.setImageResource(mGroupDrawables[groupPosition]);
 
-        Picasso.get().load("http://192.168.0.4:80/sannibh/admin/"+mGroupDrawables[groupPosition]).error(R.drawable.ic_network_error).fit().into(image,new Callback.EmptyCallback() {
+        Picasso.get().load("http://192.168.43.121:80/sannibh/admin/"+mGroupDrawables[groupPosition]).error(R.drawable.ic_network_error).fit().into(image,new Callback.EmptyCallback() {
             @Override public void onSuccess() {
                 Log.d("sqllak","imageloaded");
             }

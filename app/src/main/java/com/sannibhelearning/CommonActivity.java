@@ -59,16 +59,8 @@ public class CommonActivity extends AppCompatActivity implements TabLayout.OnTab
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-
-
         init();
-
-
-
-
-
-
-
+        
     }
 
     @Override

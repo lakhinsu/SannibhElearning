@@ -61,7 +61,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
         // loading album cover using Glide library
 
-        Picasso.get().load("http://192.168.0.4:80/sannibh/admin/"+courseModel.getUrl()).into(holder.thumbnail);
+        Picasso.get().load("http://192.168.43.121:80/sannibh/admin/"+courseModel.getUrl()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

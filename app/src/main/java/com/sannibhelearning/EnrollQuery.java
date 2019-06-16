@@ -27,7 +27,7 @@ public class EnrollQuery  extends AsyncTask<String , Void, String> {
     protected String doInBackground(String... strings) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionString = "jdbc:mysql://192.168.0.4:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
+            String connectionString = "jdbc:mysql://192.168.43.121:3306/" + "elearn" + "?user=" + "elearn" + "&password=" + "batman" + "&useUnicode=true&characterEncoding=UTF-8&";
             Connection con = DriverManager.getConnection(connectionString);
 
             String email=strings[0];
