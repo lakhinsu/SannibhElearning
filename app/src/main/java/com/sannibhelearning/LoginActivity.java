@@ -10,13 +10,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 public class LoginActivity extends AppCompatActivity implements TaskCompleted{
 
     String semail,spassword;
 
     SharedPreferences preferences;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,28 +31,23 @@ public class LoginActivity extends AppCompatActivity implements TaskCompleted{
                 final EditText  password=(EditText)findViewById(R.id.password);
                 final Button login = (Button)findViewById(R.id.login);
                 Button register = (Button)findViewById(R.id.RegisterActivity);
-            //input validation
-            if(password.length()>6)
-            {
-                login.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //password validation
-                    }
-                });
+                imageView=(ImageView)findViewById(R.id.loginlogo);
 
-            }
-            else{
-                Toast.makeText(this,"Password Too Short",Toast.LENGTH_SHORT);
-            }
+                Picasso.get().load("http://sannibh.in/img/logo.png").error(R.drawable.ic_network_error).into(imageView);
+
 
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     semail=email.getText().toString();
                     spassword=password.getText().toString();
+                    if(semail.length()==0 || spassword.length()==0){
+                        Toast.makeText(getApplicationContext(),"Please enter credentials",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
                     LoginQuery q = new LoginQuery(LoginActivity.this);
                     q.execute(email.getText().toString(), password.getText().toString());
+                    }
 
 
                 }

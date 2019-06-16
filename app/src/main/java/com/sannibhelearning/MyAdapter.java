@@ -168,7 +168,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
                 i.putExtra("coursename",mGroups[groupPosition]);
                 i.putExtra("modulename",temp);
                 mContext.startActivity(i);
-                Toast.makeText(mContext,"Clicked on "+temp,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext,"Clicked on "+temp,Toast.LENGTH_SHORT).show();
                 //Module clicks handle here
             }
         });

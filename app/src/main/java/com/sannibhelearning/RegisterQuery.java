@@ -1,7 +1,9 @@
 package com.sannibhelearning;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -9,7 +11,22 @@ import java.sql.DriverManager;
 
 public class RegisterQuery extends AsyncTask<String , Void, String>
 {
+
+    Context mContext;
+    OnRegistration mCallback;
     Connection con;
+
+    boolean error=false;
+
+
+
+    public RegisterQuery(Context context){
+        mContext=context;
+        mCallback=(OnRegistration) context;
+    }
+
+
+
     @Override
     protected String doInBackground(String ...params) {
         try {
@@ -39,8 +56,20 @@ public class RegisterQuery extends AsyncTask<String , Void, String>
             // tv.setText(result);
         } catch (Exception e) {
             Log.d("query",e.getMessage());
+            error=true;
             // tv.setText(e.toString());
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        if(error){
+            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_LONG).show();
+        }
+        else{
+        mCallback.onRegistration();
+        }
     }
 }

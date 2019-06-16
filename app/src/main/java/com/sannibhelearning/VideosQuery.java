@@ -3,6 +3,7 @@ package com.sannibhelearning;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +20,8 @@ public class VideosQuery extends AsyncTask<String , Void, String> {
     ResultSet resultSet;
 
     String videos[][];
+
+    boolean error=false;
 
 
     public VideosQuery(Context context){
@@ -75,6 +78,7 @@ public class VideosQuery extends AsyncTask<String , Void, String> {
 
         }catch (Exception e){
             e.printStackTrace();
+            error=true;
         }
 
 
@@ -86,6 +90,11 @@ public class VideosQuery extends AsyncTask<String , Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        if(error){
+            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_LONG).show();
+        }
+        else{
         mCallback.getVideosList(videos);
+        }
     }
 }

@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
     SharedPreferences preferences;
@@ -23,6 +26,9 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         TextView username = (TextView) findViewById(R.id.profilename);
+        ImageView imageView=(ImageView) findViewById(R.id.sannibghlogo);
+
+        Picasso.get().load("http://sannibh.in/img/logo.png").into(imageView);
 
         logout = (Button) findViewById(R.id.Logout);
 
@@ -31,7 +37,7 @@ public class Profile extends AppCompatActivity {
         String password = preferences.getString("password", "0");
         String firstname = preferences.getString("fname", "0");
         String lastname = preferences.getString("lname", "0");
-        username.setText(email);
+        username.setText("Email:"+email+"\n");
 
         logout.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -39,10 +45,11 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences.Editor data = preferences.edit();
 
-                data.putString("email", "0");
-                data.putString("password", "0");
-                data.putString("fname", "0");
-                data.putString("lname", "0");
+
+                data.putString("email", "");
+                data.putString("password", "");
+                data.putString("fname", "");
+                data.putString("lname", "");
 
                 data.commit();
 

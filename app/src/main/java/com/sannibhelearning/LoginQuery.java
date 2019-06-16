@@ -2,7 +2,9 @@ package com.sannibhelearning;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +18,7 @@ public class LoginQuery extends AsyncTask<String , Void, String>
     Connection con;
     Context mContext;
     TaskCompleted mCallback;
-
+    boolean error=false;
 
     public LoginQuery(Context context){
         mContext=context;
@@ -65,6 +67,9 @@ public class LoginQuery extends AsyncTask<String , Void, String>
         } catch (Exception e) {
             Log.d("query",e.getMessage());
 
+            error=true;
+
+
             // tv.setText(e.toString());
         }
         return null;
@@ -73,7 +78,14 @@ public class LoginQuery extends AsyncTask<String , Void, String>
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        if(error){
+            Toast.makeText(mContext,"Check your connection!",Toast.LENGTH_LONG).show();
+
+        }else{
         mCallback.onTaskComplete(s);
+        }
 
     }
+
+
 }

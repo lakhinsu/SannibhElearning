@@ -2,6 +2,7 @@ package com.sannibhelearning;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +16,7 @@ public class EnrollQuery  extends AsyncTask<String , Void, String> {
     OnEnrollment mCallback;
     ResultSet resultSet;
     ArrayList<CourseModel> courseModelList;
+    boolean error=false;
 
     public EnrollQuery(Context mContext){
         this.mContext=mContext;
@@ -38,6 +40,7 @@ public class EnrollQuery  extends AsyncTask<String , Void, String> {
 
         }catch (Exception e){
             e.printStackTrace();
+            error=true;
         }
 
 
@@ -47,6 +50,11 @@ public class EnrollQuery  extends AsyncTask<String , Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        if(error){
+            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_LONG).show();
+        }
+        else{
         mCallback.onEnrollment();
+        }
     }
 }

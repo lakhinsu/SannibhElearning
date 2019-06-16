@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String email = preferences.getString("email", "0");
         String password = preferences.getString("password", "0");
-        if (email == "0" && password == "0") {
+        if (email == "0" && password == "0" || (email.length()==0 || password.length()==0) || !preferences.contains("email")) {
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

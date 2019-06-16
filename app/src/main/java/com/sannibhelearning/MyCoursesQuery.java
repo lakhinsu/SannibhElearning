@@ -3,6 +3,7 @@ package com.sannibhelearning;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,7 +22,7 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
     OnCoursesload mCallback;
     ResultSet resultSet;
 
-
+    boolean error=false;
 
 
     public MyCoursesQuery(Context context){
@@ -55,6 +56,7 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
 
         }catch (Exception e){
             e.printStackTrace();
+            error=true;
         }
 
         return null;
@@ -64,7 +66,12 @@ public class MyCoursesQuery extends AsyncTask<String , Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         Log.d("sqllak","here");
+        if(error){
+            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_LONG).show();
+        }
+        else{
         mCallback.onCoursesLoad(resultSet);
+        }
 
     }
 }

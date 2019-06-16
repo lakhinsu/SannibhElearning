@@ -3,6 +3,7 @@ package com.sannibhelearning;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +20,8 @@ public class ModulesQuery extends AsyncTask<String , Void, String>  {
     ResultSet resultSet;
 
     String modules[][];
+
+    boolean error=false;
 
 
     public ModulesQuery(Context context){
@@ -68,6 +71,11 @@ public class ModulesQuery extends AsyncTask<String , Void, String>  {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        mCallback.onModulesLoad(modules);
+        if(error){
+            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_LONG).show();
+        }
+        else {
+            mCallback.onModulesLoad(modules);
+        }
     }
 }
